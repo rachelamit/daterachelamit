@@ -1,0 +1,471 @@
+<!DOCTYPE html><html><head><base href="https://example.com/couple-activities/all-activities/%20%D7%AA%D7%97%D7%96%D7%99%D7%A8%20%D7%90%D7%AA%20%D7%94%D7%90%D7%9C%D7%9E%D7%A0%D7%98%D7%99%D7%9D%20%D7%94%D7%95%D7%99%D7%96%D7%95%D7%90%D7%9C%D7%99%D7%9D%20%D7%A9%D7%9C%20%D7%92%D7%9C%D7%92%D7%9C%20%D7%94%D7%9E%D7%96%D7%9C%20%D7%95%D7%94%D7%A7%D7%95%D7%91%D7%99%D7%94%20%D7%95%D7%9B%D7%93'"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פעילויות לזוגות</title>
+<style>
+    body {
+        font-family: 'Heebo', sans-serif;
+        background-color: #FFFAF8;
+        margin: 0;
+        padding: 10px;
+        direction: rtl;
+        color: #6B4E4E;
+    }
+    .container {
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    h1 {
+        color: #FF69B4;
+        text-align: center;
+        max-width: 800px;
+        margin: 20px auto;
+        font-size: 24px;
+        line-height: 1.4;
+    }
+    h2, h3 {
+        color: #1D3D67;
+        text-align: center;
+    }
+    .section {
+        margin-bottom: 30px;
+        padding: 15px;
+        background-color: #FFF0EB;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(29, 61, 103, 0.1);
+        width: 100%;
+        max-width: 800px;
+    }
+    .activity {
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(29, 61, 103, 0.1);
+        padding: 15px;
+        margin-bottom: 15px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+    .activity:active {
+        transform: scale(0.98);
+    }
+    button {
+        background-color: #1D3D67;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    button:hover {
+        background-color: #2A5A94;
+    }
+    button:active {
+        transform: scale(0.95);
+    }
+    input[type="text"], textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #1D3D67;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    .header-image {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto 20px;
+        display: block;
+        border-radius: 10px;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    .pulse {
+        animation: pulse 2s infinite;
+    }
+    @keyframes slideIn {
+        from { transform: translateY(50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .slide-in {
+        animation: slideIn 0.5s ease-out;
+    }
+    
+    /* Roulette Wheel Styles */
+    .roulette-wheel {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: conic-gradient(
+            #FF6B6B 0deg 60deg, 
+            #4ECDC4 60deg 120deg, 
+            #45B7D1 120deg 180deg, 
+            #F7DC6F 180deg 240deg, 
+            #E74C3C 240deg 300deg, 
+            #3498DB 300deg 360deg
+        );
+        margin: 20px auto;
+        position: relative;
+        transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    .roulette-center {
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .roulette-spinner {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 100px solid #333;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        transform-origin: bottom;
+    }
+
+    /* Dice Styles */
+    .dice {
+        width: 60px;
+        height: 60px;
+        background: #fff;
+        border-radius: 10px;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: bold;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+    
+    @keyframes shake {
+        0% { transform: translate(1px, 1px) rotate(0deg); }
+        10% { transform: translate(-1px, -2px) rotate(-1deg); }
+        20% { transform: translate(-3px, 0px) rotate(1deg); }
+        30% { transform: translate(3px, 2px) rotate(0deg); }
+        40% { transform: translate(1px, -1px) rotate(1deg); }
+        50% { transform: translate(-1px, 2px) rotate(-1deg); }
+        60% { transform: translate(-3px, 1px) rotate(0deg); }
+        70% { transform: translate(3px, 1px) rotate(-1deg); }
+        80% { transform: translate(-1px, -1px) rotate(1deg); }
+        90% { transform: translate(1px, 2px) rotate(0deg); }
+        100% { transform: translate(1px, -2px) rotate(-1deg); }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <img src="https://scontent.ftlv8-1.fna.fbcdn.net/v/t39.30808-6/452254685_10231646712567592_6501227244832652117_n.jpg?_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=127cfc&amp;_nc_ohc=fmYP8lk88QkQ7kNvgF8fV8u&amp;_nc_ht=scontent.ftlv8-1.fna&amp;oh=00_AYA2CgNmioDj4e-Bz8mq1w2VzQJFPDirLr9xcuiW-IM47g&amp;oe=66A4887F" alt="תמונת כותרת של פעילויות לזוגות" class="header-image">
+
+    <h1 style="color: #FF69B4;">אהלן, את העמוד הזה פיתחתי מתוך רצון להכניס את השיח המקרב לשגרת היום -יום.  תוכלו למצוא כאן רעיונות לדייטים מעבר לכיף היא לעודד תקשורת מקרבת בניכם. חלק מההפעלות קלילות יותר וחלק דורשות יותר זמן ועומק. תרגישו את האווירה ותבחרו לכם דייט מקרב!</h1>
+    
+    <div class="section">
+        <h2>הפעלות לאווירה</h2>
+        <div class="activity pulse">
+            <h3>שיר שמתאר אותנו</h3>
+            <p>חפשו יחד שיר שמתאר את הזוגיות שלכם:</p>
+            <form action="https://www.youtube.com/results" method="GET" target="_blank">
+                <input type="text" name="search_query" placeholder="הקלידו שם שיר או מילות מפתח">
+                <button type="submit">חפש ביוטיוב</button>
+            </form>
+        </div>
+
+        <div class="activity">
+    <h3>זמן לרקוד</h3>
+    <svg width="200" height="200" viewBox="0 0 200 200" style="margin: 10px auto; display: block;">
+    <style>
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        .dancers { animation: sway 3s ease-in-out infinite; }
+    </style>
+    <g class="dancers" style="transform-origin: center bottom;">
+        <!-- זוג רוקד -->
+        <circle cx="100" cy="50" r="30" fill="#FF69B4"></circle> <!-- ראש של דמות 1 -->
+        <path d="M85,80 Q100,100 115,80" stroke="#FF69B4" stroke-width="4" fill="none"></path> <!-- גוף של דמות 1 -->
+        <line x1="85" y1="90" x2="70" y2="110" stroke="#FF69B4" stroke-width="4"></line> <!-- יד שמאל של דמות 1 -->
+        <line x1="115" y1="90" x2="130" y2="110" stroke="#FF69B4" stroke-width="4"></line> <!-- יד ימין של דמות 1 -->
+        <path d="M100,100 Q90,130 85,150" stroke="#FF69B4" stroke-width="4" fill="none"></path> <!-- רגל שמאל של דמות 1 -->
+        <path d="M100,100 Q110,130 115,150" stroke="#FF69B4" stroke-width="4" fill="none"></path> <!-- רגל ימין של דמות 1 -->
+        
+        <circle cx="150" cy="70" r="25" fill="#1D3D67"></circle> <!-- ראש של דמות 2 -->
+        <path d="M140,95 Q150,115 160,95" stroke="#1D3D67" stroke-width="4" fill="none"></path> <!-- גוף של דמות 2 -->
+        <line x1="140" y1="105" x2="125" y2="120" stroke="#1D3D67" stroke-width="4"></line> <!-- יד שמאל של דמות 2 -->
+        <line x1="160" y1="105" x2="175" y2="120" stroke="#1D3D67" stroke-width="4"></line> <!-- יד ימין של דמות 2 -->
+        <path d="M150,115 Q140,140 135,160" stroke="#1D3D67" stroke-width="4" fill="none"></path> <!-- רגל שמאל של דמות 2 -->
+        <path d="M150,115 Q160,140 165,160" stroke="#1D3D67" stroke-width="4" fill="none"></path> <!-- רגל ימין של דמות 2 -->
+        
+        <!-- תווי מוזיקה -->
+        <text x="30" y="40" font-size="24" fill="#E74C3C">♪</text>
+        <text x="50" y="70" font-size="24" fill="#3498DB">♫</text>
+        <text x="170" y="40" font-size="24" fill="#2ECC71">♩</text>
+    </g>
+</svg>
+    <p>בחרו שיר אהוב ורקדו יחד במשך 3 דקות. זה יכול להיות ריקוד מצחיק, רומנטי או פשוט תנועה חופשית.</p>
+    <form action="https://www.youtube.com/results" method="GET" target="_blank" style="margin-bottom: 10px;">
+        <input type="text" name="search_query" placeholder="חפשו שיר לריקוד ביוטיוב" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+        <button type="submit" style="background-color: #FF0000; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">חפש ביוטיוב</button>
+    </form>
+    <button onclick="startTimer(180, this)">התחל טיימר 3 דקות</button>
+</div>
+
+        <div class="activity">
+    <h3>מתנה ב-50 שקל</h3>
+    <div>
+    <p>חשבו על מתנה שהייתם רוצים לקנות לבן/בת הזוג שלכם ב-50 שקל. הנה כמה רעיונות:</p>
+    <ul style="list-style-type: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: space-around;">
+        <li style="background-color: #FFE4E1; border-radius: 10px; padding: 10px; margin: 5px; width: calc(33% - 10px); text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <span style="font-size: 24px;">🎨</span><br>סט ציור מיני
+        </li>
+        <li style="background-color: #E6E6FA; border-radius: 10px; padding: 10px; margin: 5px; width: calc(33% - 10px); text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <span style="font-size: 24px;">🍫</span><br>מארז שוקולדים
+        </li>
+        <li style="background-color: #F0FFF0; border-radius: 10px; padding: 10px; margin: 5px; width: calc(33% - 10px); text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <span style="font-size: 24px;">🌿</span><br>צמח קטן לבית
+        </li>
+        <li style="background-color: #FFF0F5; border-radius: 10px; padding: 10px; margin: 5px; width: calc(33% - 10px); text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <span style="font-size: 24px;">📚</span><br>ספר כיס
+        </li>
+        <li style="background-color: #F0F8FF; border-radius: 10px; padding: 10px; margin: 5px; width: calc(33% - 10px); text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <span style="font-size: 24px;">🧦</span><br>גרביים מצחיקות
+        </li>
+        <li style="background-color: #FFF5E6; border-radius: 10px; padding: 10px; margin: 5px; width: calc(33% - 10px); text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <span style="font-size: 24px;">🕯️</span><br>נר ריחני
+        </li>
+    </ul>
+    <p>שתפו את הרעיונות שלכם או חפשו השראה נוספת:</p>
+</div>
+    <form action="https://www.google.com/search" method="GET" target="_blank">
+        <input type="text" name="q" placeholder="חפש רעיונות למתנות ב-50 שקל" style="width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #1D3D67; border-radius: 5px; font-size: 16px; box-sizing: border-box;">
+        <button type="submit" style="margin-top: 10px;">חפש בגוגל</button>
+    </form>
+</div>
+
+        <div>
+    <h3>קוביית הבישול המשותף</h3>
+    <p>גלגלו את הקובייה וגלו את האתגר הקולינרי שלכם להיום!</p>
+    <div class="dice" id="cookingDice" style="width: 120px; height: 120px; font-size: 14px; text-align: center; display: flex; justify-content: center; align-items: center; padding: 10px; background: conic-gradient(#FF6B6B 0deg 60deg, #4ECDC4 60deg 120deg, #45B7D1 120deg 180deg, #F7DC6F 180deg 240deg, #E74C3C 240deg 300deg, #3498DB 300deg 360deg); color: #FFFFFF; border: 3px solid #FFF0EB; box-shadow: 0 0 15px rgba(107, 78, 78, 0.3); transition: all 0.3s ease;">הכינו מנה מ-5 מרכיבים</div>
+    <button onclick="rollCookingDice()">גלגל את קוביית הבישול</button>
+</div>
+
+        <div class="activity">
+    <h3>זמן מגע</h3>
+    <p>הקדישו 5 דקות למגע מקרב. הנה הפעלה אקראית:</p>
+    <div id="touchActivity"></div>
+    <button onclick="newTouchActivity(); startTimer(300, this)">התחל פעילות חדשה (5 דקות)</button>
+</div>
+
+        <div class="activity">
+            <h3>לשמור את הרגע</h3>
+            <p>צלמו תמונה משותפת שמייצגת את היום שלכם או את הרגע הנוכחי.</p>
+        </div>
+
+        <div class="activity">
+            <h3>יצירה משותפת</h3>
+            <p>ציירו או כתבו משהו יחד. זה יכול להיות ציור, שיר קצר או סיפור קטן.</p>
+        </div>
+
+        <div>
+</div>
+    </div>
+
+    <div class="section">
+        <h2>הפעלות לשיח מקרב</h2>
+        <div class="activity">
+            <h3>רולטת שאלות</h3>
+            <div class="roulette-wheel" id="rouletteWheel">
+                <div class="roulette-center"></div>
+                <div class="roulette-spinner"></div>
+            </div>
+            <button onclick="spinRoulette()">סובב את הרולטה</button>
+            <p id="rouletteQuestion"></p>
+        </div>
+
+        <div class="activity">
+    <h3>שאלות כן ולא</h3>
+    <p>ענו על השאלה הבאה רק ב"כן" או "לא". לאחר מכן, לחצו על הכפתור לקבלת שאלה חדשה.</p>
+    <p id="yesNoQuestion" style="font-weight: bold; margin: 15px 0;">האם אתם זוכרים את הפעם הראשונה שנפגשתם?</p>
+    <button onclick="nextYesNoQuestion()" style="margin-top: 10px;">שאלה הבאה</button>
+</div>
+
+        <div class="activity">
+            <h3>השלם את המשפט</h3>
+            <p id="completeTheSentence"></p>
+            <button onclick="nextSentence()">משפט הבא</button>
+        </div>
+
+        <div class="activity">
+            <h3>אני רוצה להגיד תודה על...</h3>
+            <p>שתפו משהו שאתם מודים עליו לבן/בת הזוג שלכם.</p>
+            <textarea placeholder="כתבו כאן את התודה שלכם"></textarea>
+        </div>
+
+        <div class="activity">
+            <h3>זיכרון משותף</h3>
+            <p>שתפו זיכרון משמעותי או מצחיק שחוויתם יחד.</p>
+        </div>
+
+        <div class="activity">
+            <h3>חלומות משותפים</h3>
+            <p>דברו על חלום או מטרה משותפת שיש לכם כזוג.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>להעמיק בקשר</h2>
+        <div class="activity">
+            <h3>כשאני ___ יעזור לי ש___</h3>
+            <p>השלימו את המשפט ושתפו עם בן/בת הזוג:</p>
+            <textarea placeholder="כשאני... יעזור לי ש..."></textarea>
+        </div>
+
+        <div class="activity">
+    <h3>שאלות עומק לזוגיות</h3>
+    <p>ענו על השאלות הבאות בכנות ובפתיחות:</p>
+    <ol>
+        <li>מתי אתם מרגישים הכי טוב בזוגיות שלכם?</li>
+        <li>מה הפעולות שבן/בת הזוג עושה שגורמות לכם להרגיש כך?</li>
+    </ol>
+    <textarea placeholder="רשמו את התשובות שלכם כאן..." style="height: 150px;"></textarea>
+    <button onclick="nextDeepQuestion()">שאלות הבאות</button>
+</div>
+
+        <div class="activity">
+            <h3>הכוח שלכם כזוג</h3>
+            <p>חשבו על סיטואציות בחיים שבהן הרגשתם שאתם חזקים יותר בכוח הזוגיות שלכם.</p>
+            <textarea placeholder="הרגשנו חזקים כזוג כאשר..."></textarea>
+        </div>
+
+        <div>
+    <h3>חקירת ערכים</h3>
+    <p>בחרו יחד את הערכים החשובים ביותר עבורכם בזוגיות:</p>
+    <div class="value-cubes">
+        <div class="cube" onclick="toggleValue(this)">אהבה</div>
+        <div class="cube" onclick="toggleValue(this)">כבוד</div>
+        <div class="cube" onclick="toggleValue(this)">אמון</div>
+        <div class="cube" onclick="toggleValue(this)">תקשורת</div>
+        <div class="cube" onclick="toggleValue(this)">הומור</div>
+        <div class="cube" onclick="toggleValue(this)">תמיכה</div>
+        <div class="cube" onclick="toggleValue(this)">חופש</div>
+        <div class="cube" onclick="toggleValue(this)">שיתוף</div>
+        <div class="cube" onclick="toggleValue(this)">התפתחות</div>
+        <div class="cube" onclick="toggleValue(this)">עצמאות</div>
+        <div class="cube" onclick="toggleValue(this)">יצירתיות</div>
+        <div class="cube" onclick="toggleValue(this)">הקשבה</div>
+    </div>
+    <p>הערכים שבחרתם:</p>
+    <div id="selectedValues"></div>
+    <p style="margin-top: 20px;">איזה ערכים הייתם רוצים להעצים או להוסיף לזוגיות שלכם?</p>
+    <textarea placeholder="הערכים שהיינו רוצים להעצים או להוסיף..." style="width: 100%; padding: 10px; margin-top: 10px;"></textarea>
+    <style>
+        .value-cubes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .cube {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #1D3D67;
+        }
+        .cube:nth-child(1) { background-color: #FFE4E1; border: 2px solid #FF69B4; }
+        .cube:nth-child(2) { background-color: #E6E6FA; border: 2px solid #1D3D67; }
+        .cube:nth-child(3) { background-color: #F0FFF0; border: 2px solid #1D3D67; }
+        .cube:nth-child(4) { background-color: #FFF0F5; border: 2px solid #FF69B4; }
+        .cube:nth-child(5) { background-color: #F0F8FF; border: 2px solid #1D3D67; }
+        .cube:nth-child(6) { background-color: #FFF5E6; border: 2px solid #FF69B4; }
+        .cube:nth-child(7) { background-color: #F5F5DC; border: 2px solid #1D3D67; }
+        .cube:nth-child(8) { background-color: #E6E6FA; border: 2px solid #1D3D67; }
+        .cube:nth-child(9) { background-color: #F0FFFF; border: 2px solid #1D3D67; }
+        .cube:nth-child(10) { background-color: #FFF0F5; border: 2px solid #FF69B4; }
+        .cube:nth-child(11) { background-color: #F0FFF0; border: 2px solid #1D3D67; }
+        .cube:nth-child(12) { background-color: #E0FFFF; border: 2px solid #1D3D67; }
+        .cube:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .cube.selected {
+            color: white;
+        }
+        .cube:nth-child(1).selected { background-color: #FF69B4; }
+        .cube:nth-child(2).selected { background-color: #1D3D67; }
+        .cube:nth-child(3).selected { background-color: #1D3D67; }
+        .cube:nth-child(4).selected { background-color: #FF69B4; }
+        .cube:nth-child(5).selected { background-color: #1D3D67; }
+        .cube:nth-child(6).selected { background-color: #FF69B4; }
+        .cube:nth-child(7).selected { background-color: #1D3D67; }
+        .cube:nth-child(8).selected { background-color: #1D3D67; }
+        .cube:nth-child(9).selected { background-color: #1D3D67; }
+        .cube:nth-child(10).selected { background-color: #FF69B4; }
+        .cube:nth-child(11).selected { background-color: #1D3D67; }
+        .cube:nth-child(12).selected { background-color: #1D3D67; }
+        #selectedValues {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</div>
+
+        <div class="activity">
+    <h3>שוחחו על תוכניות או חלומות משותפים לעתיד. איפה אתם רואים את עצמכם בעוד 5 שנים?</h3>
+    <p>תרשמו 5 פעולות שאתם כבר עכשיו יכולים לממש עבור מטרה זו</p>
+</div>
+    </div>
+</div>
+
+<script>
+// ... (קוד קיים)
+
+function nextDeepQuestion() {
+    var deepQuestions = [
+        ["מהו הרגע הכי משמעותי שחוויתם יחד בזוגיות?", "איך הרגע הזה השפיע על הקשר ביניכם?"],
+        ["מהו האתגר הגדול ביותר שהתגברתם עליו כזוג?", "אילו כוחות גיליתם בעצמכם ובזוגיות במהלך ההתמודדות?"],
+        ["מהו החלום המשותף הגדול ביותר שלכם כזוג?", "אילו צעדים אתם יכולים לעשות יחד כדי להתקרב להגשמת החלום?"],
+        ["באיזה אופן הזוגיות שלכם תרמה להתפתחות האישית של כל אחד מכם?", "כיצד אתם יכולים להמשיך לתמוך בצמיחה האישית של בן/בת הזוג?"],
+        ["מהו הערך החשוב ביותר עבורכם בזוגיות?", "כיצד אתם מביאים לידי ביטוי את הערך הזה ביומיום?"]
+    ];
+    var randomPair = deepQuestions[Math.floor(Math.random() * deepQuestions.length)];
+    var questionList = document.querySelector('#84 ol');
+    questionList.innerHTML = `<li>${randomPair[0]}</li><li>${randomPair[1]}</li>`;
+}
+
+// הוסף את הפונקציה החדשה לאובייקט window כדי שתהיה נגישה מה-onclick
+window.nextDeepQuestion = nextDeepQuestion;
+
+// ... (קוד קיים)
+</script>
+
+</body></html>
